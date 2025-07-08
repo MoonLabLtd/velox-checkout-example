@@ -17,7 +17,6 @@ export const safeBigInt = (
 	} 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     catch (_err) {
-		// console.log('error parsing value to BigInt', value);
 		return fallback;
 	}
 };

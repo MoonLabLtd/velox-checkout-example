@@ -16,13 +16,6 @@ export const Step2 = () => {
   const { setStep, setExternalId } = useFormActions();
   const serverUrl = import.meta.env.VITE_PUBLIC_SERVER_URL;
 
-  // function openPopup() {
-  //   const url = "https://www.abc.com";
-  //   const name = "myPopup";
-  //   const params = "width=600,height=400,resizable=yes,scrollbars=yes";
-  //   window.open(url, name, params);
-  // }
-
   const createCheckoutQuery = useMutation({
     mutationFn: async () => {
       const res = await fetch(`${serverUrl}`, {
@@ -38,7 +31,6 @@ export const Step2 = () => {
       return res.json();
     },
     onSuccess: (data) => {
-      console.log("checkout success", data);
       window.open(
         `https://checkout-velox.web.app?externalId=${data.externalId}`,
         "_blank",
@@ -46,15 +38,8 @@ export const Step2 = () => {
       );
       setExternalId(data?.externalId);
       setStep("step3");
-      // window.open("https://abc.com", "_blank", "popup=true");
-      // window.open("http://google.com", "myWindow", "width=800,height=600");
-      // window.open(
-      //   `https://checkout-velox.web.app?externalId=${data.externalId}`
-      // );
     },
   });
-
-  console.log("test", createCheckoutQuery.data?.externalId);
 
   return (
     <div className="flex flex-col gap-4 w-4xl">
@@ -200,7 +185,6 @@ export const Step2 = () => {
             variant={"default"}
             className="w-full bg-[#1DBF73] z-[1]"
             onClick={() => {
-              console.log("trigger checkout");
               createCheckoutQuery.mutate();
             }}
           >

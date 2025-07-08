@@ -24,11 +24,11 @@ export const Step1 = () => {
         <form
           className="space-y-4"
           onSubmit={form.handleSubmit(
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             (data) => {
-              console.log("data", data);
               setStep("step2");
-            },
-            (onInvalid) => console.log(onInvalid)
+            }
+            // (onInvalid) => console.log(onInvalid)
           )}
         >
           <div className="flex flex-col gap-4">

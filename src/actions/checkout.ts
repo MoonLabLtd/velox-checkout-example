@@ -18,8 +18,7 @@ export const useCheckoutInfoQuery = (externalId: string) => {
 		queryFn: async () => {
 			if (!externalId) {
 				throw new Error('External ID is required to fetch checkout info');
-			}
-            console.log('external ID', externalId)
+			};
             const serverUrl = import.meta.env.VITE_PUBLIC_SERVER_URL;
 			const response = await fetch(`${serverUrl}/${externalId}`, {
 				method: 'GET',

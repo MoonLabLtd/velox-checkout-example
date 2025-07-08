@@ -41,11 +41,6 @@ const statusText = (status: Status) => {
 export const Step3 = () => {
   const externalId = useExternalId();
   const getCheckoutQuery = useCheckoutInfoQuery(externalId);
-
-  console.log("externalId", externalId);
-  console.log("payment data status", getCheckoutQuery.status);
-  console.log("payment data", getCheckoutQuery.data);
-  console.log("subpayments", getCheckoutQuery.data);
   const subpayments =
     getCheckoutQuery.data && getCheckoutQuery.data?.payments?.subPayments;
 
