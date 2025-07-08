@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "deploy": "firebase deploy --only hosting:velox-merchant-demo",
     "lint": "eslint .",
     "preview": "vite preview"
   },

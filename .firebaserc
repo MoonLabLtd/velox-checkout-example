@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "velox-443909"
+  },
+  "targets": {
+    "velox-443909": {
+      "hosting": {
+        "velox-merchant-demo": [
+          "velox-merchant-demo"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}
