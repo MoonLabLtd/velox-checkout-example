@@ -61,6 +61,7 @@ export const Step2 = () => {
                 <RadioGroupItem
                   value="pay-by-bank"
                   id="pay-by-bank"
+                  disabled
                   className="border-[#BBBDC0] text-green-600 focus-visible:border-green-600 focus-visible:ring-green-600/20 dark:border-[#BBBDC0] dark:text-green-400 dark:focus-visible:border-green-400 dark:focus-visible:ring-green-400/40 [&_svg]:fill-green-600 dark:[&_svg]:fill-green-400"
                 />
                 <Label htmlFor="pay-by-bank">
@@ -74,6 +75,7 @@ export const Step2 = () => {
                 <RadioGroupItem
                   value="debit-card"
                   id="debit-card"
+                  disabled
                   className="border-[#BBBDC0] text-green-600 focus-visible:border-green-600 focus-visible:ring-green-600/20 dark:border-[#BBBDC0] dark:text-green-400 dark:focus-visible:border-green-400 dark:focus-visible:ring-green-400/40 [&_svg]:fill-green-600 dark:[&_svg]:fill-green-400"
                 />
                 <Label htmlFor="debit-card">
@@ -87,6 +89,7 @@ export const Step2 = () => {
                 <RadioGroupItem
                   value="paypal"
                   id="paypal"
+                  disabled
                   className="border-[#BBBDC0] text-green-600 focus-visible:border-green-600 focus-visible:ring-green-600/20 dark:border-[#BBBDC0] dark:text-green-400 dark:focus-visible:border-green-400 dark:focus-visible:ring-green-400/40 [&_svg]:fill-green-600 dark:[&_svg]:fill-green-400"
                 />
                 <Label htmlFor="paypal">
@@ -107,6 +110,7 @@ export const Step2 = () => {
                 <RadioGroupItem
                   value="pay-with-alipay"
                   id="alipay"
+                  disabled
                   className="border-[#BBBDC0] text-green-600 focus-visible:border-green-600 focus-visible:ring-green-600/20 dark:border-[#BBBDC0] dark:text-green-400 dark:focus-visible:border-green-400 dark:focus-visible:ring-green-400/40 [&_svg]:fill-green-600 dark:[&_svg]:fill-green-400"
                 />
                 <Label htmlFor="alipay">
@@ -117,6 +121,7 @@ export const Step2 = () => {
                 <RadioGroupItem
                   value="pay-with-sofort"
                   id="sofort"
+                  disabled
                   className="border-[#BBBDC0] text-green-600 focus-visible:border-green-600 focus-visible:ring-green-600/20 dark:border-[#BBBDC0] dark:text-green-400 dark:focus-visible:border-green-400 dark:focus-visible:ring-green-400/40 [&_svg]:fill-green-600 dark:[&_svg]:fill-green-400"
                 />
                 <Label htmlFor="sofort">
@@ -157,26 +162,22 @@ export const Step2 = () => {
         <div className="flex flex-col gap-6">
           <Card className="border-white p-5 w-[300px]">
             <CardHeader>
-              <CardTitle>Price Summary</CardTitle>
+              <CardTitle>Payment Details</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="flex flex-col gap-4">
                 <div className="flex flex-row justify-between">
-                  <p>Subtotal</p>
-                  <p>$200</p>
+                  <p>Payment Amount</p>
+                  <p>$0.01</p>
                 </div>
                 <div className="flex flex-row justify-between">
-                  <p>Service Fee</p>
-                  <p>$30</p>
+                  <p>Platform Fee</p>
+                  <p>$0.00</p>
                 </div>
                 <div className="border-b-[1px] border-[#dddddd]" />
                 <div className="flex flex-row justify-between">
                   <p className="font-bold">Total</p>
-                  <p className="font-bold">$230</p>
-                </div>
-                <div className="flex flex-row justify-between">
-                  <p>Delivery Time</p>
-                  <p>5 days</p>
+                  <p className="font-bold">$0.01</p>
                 </div>
               </div>
             </CardContent>
