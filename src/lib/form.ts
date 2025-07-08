@@ -2,6 +2,7 @@ import type { formSteps } from "@/store/useFormStore";
 import type { JSX } from "react";
 import { Step1 } from "@/components/Step1";
 import { Step2 } from "@/components/Step2";
+import { Step3 } from '@/components/Step3';
 
 export type FormStep = {
   title: string;
@@ -19,6 +20,11 @@ export const formData: Record<formSteps, FormStep> = {
         step: 2,
         title: 'Step 2: Confirm & Pay',
         form: Step2
+    },
+    'step3': {
+        step: 3,
+        title: 'Step 3: Result',
+        form: Step3
     }
 }
 

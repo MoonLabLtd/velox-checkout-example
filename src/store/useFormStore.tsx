@@ -1,30 +1,23 @@
-// import { StepOneData, StepTwoData } from "@/lib/form";
 import { create } from "zustand";
 import { combine } from "zustand/middleware";
 
-// const stepVariant = {
-//   1: "stepOne",
-//   2: "stepTwo",
-// };
-
-export type formSteps = "step1" | "step2";
-
-// type setDataType =
-//   | { step: 1; data: StepOneData }
-//   | { step: 2; data: StepTwoData };
+export type formSteps = "step1" | "step2" | "step3";
 
 const useFormStore = create(
   combine(
     {
-      step: "step1" as formSteps,
+      step: "step2" as formSteps,
+      externalId: "",
     },
     (set) => ({
       actions: {
         setStep: (step: formSteps) => set({ step }),
+        setExternalId: (externalId: string) => set({ externalId }),
       },
     })
   )
 );
 
 export const useFormStep = () => useFormStore((state) => state.step);
+export const useExternalId = () => useFormStore((state) => state.externalId);
 export const useFormActions = () => useFormStore((state) => state.actions);

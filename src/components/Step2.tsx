@@ -10,11 +10,54 @@ import paypal from "../assets/svgs/paypal.svg";
 import alipay from "../assets/svgs/alipay.svg";
 import sofort from "../assets/svgs/sofort.svg";
 import VeloxPay from "../assets/svgs/velox-all-black.svg";
+import { useMutation } from "@tanstack/react-query";
 
 export const Step2 = () => {
-  const { setStep } = useFormActions();
+  const { setStep, setExternalId } = useFormActions();
+  const serverUrl = import.meta.env.VITE_PUBLIC_SERVER_URL;
+
+  // function openPopup() {
+  //   const url = "https://www.abc.com";
+  //   const name = "myPopup";
+  //   const params = "width=600,height=400,resizable=yes,scrollbars=yes";
+  //   window.open(url, name, params);
+  // }
+
+  const createCheckoutQuery = useMutation({
+    mutationFn: async () => {
+      const res = await fetch(`${serverUrl}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          amount: "10000",
+          orderId: "ORD-12345-XYZ",
+          message: "Please handle with care.",
+        }),
+      });
+      if (!res.ok) throw new Error(await res.text());
+      return res.json();
+    },
+    onSuccess: (data) => {
+      console.log("checkout success", data);
+      window.open(
+        `https://checkout-velox.web.app?externalId=${data.externalId}`,
+        "_blank",
+        "width=600,height=600,resizable=yes,scrollbars=yes,popup=yes"
+      );
+      setExternalId(data?.externalId);
+      setStep("step3");
+      // window.open("https://abc.com", "_blank", "popup=true");
+      // window.open("http://google.com", "myWindow", "width=800,height=600");
+      // window.open(
+      //   `https://checkout-velox.web.app?externalId=${data.externalId}`
+      // );
+    },
+  });
+
+  console.log("test", createCheckoutQuery.data?.externalId);
+
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 w-4xl">
       <div className="flex flex-row justify-between gap-12">
         <div className="flex flex-col gap-7">
           <div>
@@ -33,7 +76,7 @@ export const Step2 = () => {
                 <RadioGroupItem
                   value="pay-by-bank"
                   id="pay-by-bank"
-                  className="border-green-600 text-green-600 focus-visible:border-green-600 focus-visible:ring-green-600/20 dark:border-green-400 dark:text-green-400 dark:focus-visible:border-green-400 dark:focus-visible:ring-green-400/40 [&_svg]:fill-green-600 dark:[&_svg]:fill-green-400"
+                  className="border-[#BBBDC0] text-green-600 focus-visible:border-green-600 focus-visible:ring-green-600/20 dark:border-[#BBBDC0] dark:text-green-400 dark:focus-visible:border-green-400 dark:focus-visible:ring-green-400/40 [&_svg]:fill-green-600 dark:[&_svg]:fill-green-400"
                 />
                 <Label htmlFor="pay-by-bank">
                   <div className="flex flex-row items-center gap-2">
@@ -43,7 +86,11 @@ export const Step2 = () => {
                 </Label>
               </div>
               <div className="flex items-center gap-3 border-[1px] border-[#E0E3E6] rounded-lg px-6 py-4">
-                <RadioGroupItem value="debit-card" id="debit-card" />
+                <RadioGroupItem
+                  value="debit-card"
+                  id="debit-card"
+                  className="border-[#BBBDC0] text-green-600 focus-visible:border-green-600 focus-visible:ring-green-600/20 dark:border-[#BBBDC0] dark:text-green-400 dark:focus-visible:border-green-400 dark:focus-visible:ring-green-400/40 [&_svg]:fill-green-600 dark:[&_svg]:fill-green-400"
+                />
                 <Label htmlFor="debit-card">
                   <div className="flex flex-row items-center gap-2">
                     <img src={debitCard} alt="debit-card" />
@@ -52,25 +99,41 @@ export const Step2 = () => {
                 </Label>
               </div>
               <div className="flex items-center gap-3 border-[1px] border-[#E0E3E6] rounded-lg px-6 py-4">
-                <RadioGroupItem value="paypal" id="paypal" />
+                <RadioGroupItem
+                  value="paypal"
+                  id="paypal"
+                  className="border-[#BBBDC0] text-green-600 focus-visible:border-green-600 focus-visible:ring-green-600/20 dark:border-[#BBBDC0] dark:text-green-400 dark:focus-visible:border-green-400 dark:focus-visible:ring-green-400/40 [&_svg]:fill-green-600 dark:[&_svg]:fill-green-400"
+                />
                 <Label htmlFor="paypal">
                   <img src={paypal} alt="paypal" />
                 </Label>
               </div>
               <div className="flex items-center gap-3 border-[1px] border-[#E0E3E6] rounded-lg px-6 py-4">
-                <RadioGroupItem value="pay-with-velox" id="velox" />
+                <RadioGroupItem
+                  value="pay-with-velox"
+                  id="velox"
+                  className="border-[#BBBDC0] text-green-600 focus-visible:border-green-600 focus-visible:ring-green-600/20 dark:border-[#BBBDC0] dark:text-green-400 dark:focus-visible:border-green-400 dark:focus-visible:ring-green-400/40 [&_svg]:fill-green-600 dark:[&_svg]:fill-green-400"
+                />
                 <Label htmlFor="velox">
                   <img src={VeloxLogo} alt="velox-logo" className="w-[80px]" />
                 </Label>
               </div>
               <div className="flex items-center gap-3 border-[1px] border-[#E0E3E6] rounded-lg px-6 py-4">
-                <RadioGroupItem value="pay-with-alipay" id="alipay" />
+                <RadioGroupItem
+                  value="pay-with-alipay"
+                  id="alipay"
+                  className="border-[#BBBDC0] text-green-600 focus-visible:border-green-600 focus-visible:ring-green-600/20 dark:border-[#BBBDC0] dark:text-green-400 dark:focus-visible:border-green-400 dark:focus-visible:ring-green-400/40 [&_svg]:fill-green-600 dark:[&_svg]:fill-green-400"
+                />
                 <Label htmlFor="alipay">
                   <img src={alipay} alt="alipay-logo" className="w-[80px]" />
                 </Label>
               </div>
               <div className="flex items-center gap-3 border-[1px] border-[#E0E3E6] rounded-lg px-6 py-4">
-                <RadioGroupItem value="pay-with-sofort" id="sofort" />
+                <RadioGroupItem
+                  value="pay-with-sofort"
+                  id="sofort"
+                  className="border-[#BBBDC0] text-green-600 focus-visible:border-green-600 focus-visible:ring-green-600/20 dark:border-[#BBBDC0] dark:text-green-400 dark:focus-visible:border-green-400 dark:focus-visible:ring-green-400/40 [&_svg]:fill-green-600 dark:[&_svg]:fill-green-400"
+                />
                 <Label htmlFor="sofort">
                   <img src={sofort} alt="sofort-logo" className="w-[70px]" />
                 </Label>
@@ -135,9 +198,10 @@ export const Step2 = () => {
           </Card>
           <Button
             variant={"default"}
-            className="w-full bg-[#1DBF73]"
+            className="w-full bg-[#1DBF73] z-[1]"
             onClick={() => {
               console.log("trigger checkout");
+              createCheckoutQuery.mutate();
             }}
           >
             Complete Order
