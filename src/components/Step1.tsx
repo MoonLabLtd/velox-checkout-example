@@ -24,8 +24,7 @@ export const Step1 = () => {
         <form
           className="space-y-4"
           onSubmit={form.handleSubmit(
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            (data) => {
+            () => {
               setStep("step2");
             }
             // (onInvalid) => console.log(onInvalid)
