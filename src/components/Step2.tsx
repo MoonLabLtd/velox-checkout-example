@@ -7,7 +7,7 @@ import payByBank from "../assets/svgs/pay-by-bank.svg";
 import debitCard from "../assets/svgs/debit-card.svg";
 import VeloxLogo from "../assets/images/logo_dark.png";
 import paypal from "../assets/svgs/paypal.svg";
-import alipay from "../assets/svgs/alipay.svg";
+import alipay from "../assets/svgs/alipay-new.svg";
 import sofort from "../assets/svgs/sofort.svg";
 import VeloxPay from "../assets/svgs/velox-all-black.svg";
 import { useMutation } from "@tanstack/react-query";
