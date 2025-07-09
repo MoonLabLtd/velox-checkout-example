@@ -6,26 +6,31 @@ This sample will illustrate how to integrate with Velox Checkout, with step-by-s
 
 ## Description of steps
 
-**Checkout Creation**
+1. **Checkout Creation**
 
-- **1.1** User initiates a checkout (e.g., by clicking "Pay" on the frontend).
-- **1.2** The frontend sends a `POST` request to `/merchant/checkout/create` on the backend.
-- **1.3** Backend creates a new checkout entry and responds with the generated `id` and `externalId`.
+   1.1 User initiates a checkout (e.g., by clicking "Pay" on the frontend).
+
+   1.2 The frontend sends a `POST` request to `/merchant/checkout/create` on the backend.
+
+   1.3 Backend creates a new checkout entry and responds with the generated `id` and `externalId`.
 
 2. **Get Checkout Status**
 
-- **2.1** The frontend polls (or queries) the backend with `GET /merchant/checkout/get?id=checkout_abcdef123456` to retrieve the status and details of the checkout.
-- **2.2** Backend returns the status and details.
+   2.1 The frontend polls (or queries) the backend with `GET /merchant/checkout/get?id=checkout_abcdef123456` to retrieve the status and details of the checkout.
+
+   2.2 Backend returns the status and details.
 
 3. **Webhook Transaction Status Update**
 
-- **3.1** The payment provider sends a webhook `POST` to `/merchant/checkout/webhook` with the new status (e.g., completed, failed).
-- **3.2** Backend updates the checkout status in the database accordingly.
+   3.1 The payment provider sends a webhook `POST` to `/merchant/checkout/webhook` with the new status (e.g., completed, failed).
+
+   3.2 Backend updates the checkout status in the database accordingly.
 
 4. **(Optional) Frontend Polling for Updated Status**
 
-- **4.1** The frontend may continue polling `/merchant/checkout/get` to check for status changes after the webhook is processed.
-- **4.2** Backend responds with the updated status and details.
+   4.1 The frontend may continue polling `/merchant/checkout/get` to check for status changes after the webhook is processed.
+
+   4.2 Backend responds with the updated status and details
 
 ```
 {
