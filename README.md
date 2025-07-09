@@ -1,69 +1,80 @@
-# React + TypeScript + Vite
+# Accept payments with Velox Checkout
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This sample will illustrate how to integrate with Velox Checkout, with step-by-step descriptions and the expected API schemas for each step.
 
-Currently, two official plugins are available:
+![Velox Merchant Checkout UML Diagram](/src/assets/images/uml-diagram.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Description of steps
 
-## Expanding the ESLint configuration
+1. **Checkout Creation**
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+1.1 User initiates a checkout (e.g., by clicking "Pay" on the frontend).
+1.2 The frontend sends a `POST` request to `/merchant/checkout/create` on the backend.
+1.3 Backend creates a new checkout entry and responds with the generated `id` and `externalId`.
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+2. **Get Checkout Status**
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+2.1 The frontend polls (or queries) the backend with `GET /merchant/checkout/get?id=checkout_abcdef123456` to retrieve the status and details of the checkout.
+2.2 Backend returns the status and details.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+3. **Webhook Transaction Status Update**
+
+3.1 The payment provider sends a webhook `POST` to `/merchant/checkout/webhook` with the new status (e.g., completed, failed).
+3.2 Backend updates the checkout status in the database accordingly.
+
+4. **(Optional) Frontend Polling for Updated Status**
+
+4.1 The frontend may continue polling `/merchant/checkout/get` to check for status changes after the webhook is processed.
+4.2 Backend responds with the updated status and details.
+
+```
+{
+    "id": 9,
+    "externalId": "k8O4SVRkbgxqyqW3SX9F"
+}
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Demo
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+You can view what the checkout flow would look like [here](https://demo.veloxwallet.com/)
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+The demo will use Velox as a payment option during checkout to simulate the whole flow.
+
+Read more about the merchant checkout flow at [https://docs.veloxwallet.com](https://docs.veloxwallet.con)
+
+## How to run locally
+
+To run it locally, open a terminal and follow the steps below
+
+**1. Clone the repository**
+
+The command below will manually clone the project and navigate to the installed project
+
 ```
+git clone https://github.com/MoonLabLtd/velox-checkout-example.git
+cd velox-checkout-example
+```
+
+You will need a server URL in order to run the demo and call the backend. Create a .env file in the root folder of the project and insert the value here
+
+```
+VITE_PUBLIC_SERVER_URL=<replace-with-your-server-url>
+```
+
+**2. Install Dependencies**
+
+In order for the project to run, the required dependencies need to be install first
+
+```
+pnpm install
+```
+
+**3. Run the project**
+
+```
+pnpm run dev
+```
+
+## Get Support
+
+If you encounter any issues, get stuck or have questions. Please send a detailed report to our suppport team at [info@veloxwallet.com](mailto:info@veloxwallet.com)
