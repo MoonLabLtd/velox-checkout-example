@@ -17,14 +17,15 @@ export const Step1 = () => {
   const form = useForm<Step1Schema>({
     resolver: zodResolver(step1Schema),
   });
-  const { setStep } = useFormActions();
+  const { setStep, setStepIndex } = useFormActions();
   return (
-    <div className="w-3xl">
+    <div className="">
       <Form {...form}>
         <form
           className="space-y-4"
           onSubmit={form.handleSubmit(
             () => {
+              setStepIndex(1);
               setStep("step2");
             }
             // (onInvalid) => console.log(onInvalid)
@@ -38,7 +39,7 @@ export const Step1 = () => {
                 <FormItem>
                   <FormLabel>Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="test" {...field} />
+                    <Input placeholder="Insert name here..." {...field} />
                   </FormControl>
                 </FormItem>
               )}
@@ -50,13 +51,17 @@ export const Step1 = () => {
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input placeholder="test" {...field} />
+                    <Input placeholder="Insert email here..." {...field} />
                   </FormControl>
                 </FormItem>
               )}
             />
           </div>
-          <Button type="submit" variant="default" className="bg-[#1DBF73]">
+          <Button
+            type="submit"
+            variant="default"
+            className="bg-[#1DBF73] w-full"
+          >
             Next
           </Button>
         </form>

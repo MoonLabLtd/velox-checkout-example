@@ -55,7 +55,7 @@ export const Step3 = () => {
   const logo = statusIcons(status);
 
   return (
-    <div className="w-2xl flex flex-col gap-4">
+    <div className="flex flex-col gap-4">
       {getCheckoutQuery.isSuccess && !getCheckoutQuery.data?.payments && (
         <div className="flex flex-col gap-3 items-center justify-center">
           <p className="font-bold">Processing Payment</p>
@@ -84,12 +84,14 @@ export const Step3 = () => {
                 Transaction date / time
               </p>
               <p className="text-end font-bold">
-                {dateFormat(new Date(getCheckoutQuery.data?.createdTime))}
+                {dateFormat(
+                  new Date(getCheckoutQuery.data?.payments.createdTime)
+                )}
               </p>
             </div>
             <div className="flex flex-row justify-between">
               <p>Payment Method</p>
-              <img src={VeloxLogo} className="w-[120px]" />
+              <img src={VeloxLogo} className="w-[60px]" />
             </div>
             <div className="flex flex-row justify-between">
               <p className="text-start text-md-emphasis">Payment Amount</p>
